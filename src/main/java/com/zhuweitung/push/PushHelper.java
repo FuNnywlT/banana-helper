@@ -1,6 +1,8 @@
 package com.zhuweitung.push;
 
+import com.zhuweitung.push.impl.PushPlusPush;
 import com.zhuweitung.push.impl.ServerChanTurboPush;
+import com.zhuweitung.push.impl.TelegramPush;
 import com.zhuweitung.push.model.PushMetaInfo;
 
 /**
@@ -25,8 +27,11 @@ public final class PushHelper {
             case SERVER_CHAN_TURBO: {
                 return new ServerChanTurboPush().doPush(metaInfo, content).isSuccess();
             }
-            case DING_TALK: {
-                return false;
+            case TELEGRAM: {
+                return new TelegramPush().doPush(metaInfo, content).isSuccess();
+            }
+            case PUSH_PLUS: {
+                return new PushPlusPush().doPush(metaInfo, content).isSuccess();
             }
             default:
                 return false;
@@ -42,8 +47,12 @@ public final class PushHelper {
          */
         SERVER_CHAN_TURBO,
         /**
-         * 钉钉
+         * TG
          */
-        DING_TALK
+        TELEGRAM,
+        /**
+         * PushPlus
+         */
+        PUSH_PLUS
     }
 }
